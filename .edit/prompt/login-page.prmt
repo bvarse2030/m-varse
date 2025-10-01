@@ -1,0 +1,61 @@
+**Objective:** Create a single, reusable React component for a Sign-in page using Next.js and TypeScript.
+
+**Component Name:** `SignInPage.tsx`
+
+**Core Requirements:**
+
+1.  **Technology Stack:**
+    *   Next.js (App Router or Pages Router - specify if you have a preference, otherwise let the AI choose a common pattern)
+    *   React
+    *   TypeScript
+    *   Tailwind CSS (for styling and responsiveness)
+    *   Framer Motion (for animations)
+
+2.  **Layout & Responsiveness:**
+    *   **Desktop/Tablet (Medium screens and up):** Implement a two-column layout.
+        *   **Left Column:** Occupies roughly 40-50% of the width. Contains the animated SVG/Art.
+        *   **Right Column:** Occupies the remaining width. Contains the sign-in form and Google Auth button. Center the content vertically within this column.
+    *   **Mobile (Small screens):** Stack the layout vertically.
+        *   **Top:** The SVG/Art section (perhaps slightly smaller).
+        *   **Bottom:** The sign-in form and Google Auth button.
+    *   Use Tailwind CSS for all styling, layout (Flexbox/Grid), and responsive breakpoints.
+
+3.  **Left Column Content:**
+    *   Display an SVG or an abstract illustration. You can use a placeholder SVG initially (e.g., a simple geometric pattern or fetch one from a royalty-free source URL if the AI can).
+    *   **Animation:** Implement a smooth **slide-in animation** for this entire left column content using Framer Motion. The animation should trigger on component mount (e.g., slide in from the left or fade/slide in).
+
+4.  **Right Column Content (Sign-in Form):**
+    *   **Heading:** Add a clear heading like "Sign In" or "Welcome Back".
+    *   **Email Input:**
+        *   Label: "Email Address"
+        *   Input type: `email`
+        *   Placeholder: "you@example.com"
+        *   State management: Use `useState` to manage the input value.
+    *   **Password Input:**
+        *   Label: "Password"
+        *   Input type: `password` (Consider adding a show/hide toggle icon button if possible, but basic input is sufficient).
+        *   Placeholder: "••••••••"
+        *   State management: Use `useState` to manage the input value.
+    *   **Error Handling UI:**
+        *   Below *each* input field, add a space for potential error messages (e.g., a small `p` tag with red text). These should only be visible when there's an error related to that field.
+        *   Add a general error message area near the submit button for form-level errors (e.g., "Invalid credentials").
+        *   Use `useState` to manage error states (e.g., `emailError`, `passwordError`, `formError`).
+    *   **Submit Button:**
+        *   Text: "Sign In"
+        *   Type: `submit`
+        *   Style: Make it visually distinct (e.g., solid background color, hover effect).
+        *   Add a subtle Framer Motion animation on hover or tap (e.g., scale up slightly).
+    *   **Or Separator:** Add a visual separator (e.g., a line with "OR" text in the middle) between the main sign-in button and the Google Auth button.
+    *   **Google Auth Button:**
+        *   Text: "Sign in with Google"
+        *   Include a Google icon (suggest using `react-icons` library, e.g., `FcGoogle`).
+        *   Style: Style according to Google's branding guidelines if possible (white background, colored icon, black/grey text) or a distinct secondary button style.
+        *   Add a subtle Framer Motion animation on hover or tap.
+
+5.  **Functionality (Placeholders):**
+    *   Wrap the right-column content in a `<form>` tag.
+    *   Implement basic `onSubmit` handler for the form. Inside, prevent default submission and log the email/password state to the console. Include placeholder logic to *set* error states for demonstration (e.g., set `formError` if email is "error@test.com").
+    *   Implement a placeholder `handleGoogleSignIn` function for the Google button click, simply logging "Google Sign In Clicked" to the console.
+
+6.  **Animation Integration (Framer Motion):**
+    *

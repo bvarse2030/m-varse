@@ -1,0 +1,88 @@
+Development Prompt: Eyecatching Responsive "Coming Soon" Page Component
+Objective: Create a single, self-contained React component for a "Coming Soon" page using Next.js, TypeScript, and Framer Motion. The component must be visually appealing, responsive across devices, include subtle animations, handle potential errors gracefully, and incorporate features to engage users.
+
+Core Requirements:
+
+Technology Stack:
+
+Framework: Next.js (assume standard setup)
+
+Language: TypeScript
+
+Animation: Framer Motion
+
+Styling: [Choose one/Specify: Tailwind CSS / CSS Modules / Styled-Components - e.g., Use Tailwind CSS]
+
+Component Structure:
+
+Implement the entire page as a single React functional component (ComingSoonPage.tsx or similar).
+
+All logic, state, and UI related to the coming soon page should reside within or be directly managed by this component.
+
+Props should be clearly typed using TypeScript interfaces/types. (Consider props for customization later, e.g., logoUrl, launchDate).
+
+Visual Design & Eyecatching View:
+
+Theme: [Specify Theme: e.g., Modern & Minimalist, Dark Mode with Neon Accents, Gradient Background, Illustration Focused, Clean Corporate]
+
+Key Elements:
+
+Prominent Headline: (e.g., "Coming Soon", "Something Awesome is Brewing")
+
+Brief Teaser Text: Describe what's coming. [Provide Text: e.g., "Our revolutionary new platform is launching soon. Get ready!"]
+
+Optional: Logo display area.
+
+Optional: Background (Image, Video, Gradient, Solid Color - specify preference).
+
+Goal: Create immediate visual interest and clearly communicate the "coming soon" status.
+
+Responsiveness:
+
+Ensure the layout adapts seamlessly to:
+
+Mobile: (e.g., single column, larger fonts, touch-friendly elements)
+
+Tablet: (e.g., adjusted spacing, potentially wider layout)
+
+Desktop: (e.g., full layout potential, consider wider screens)
+
+Use responsive design principles (e.g., relative units, media queries if using CSS Modules/Styled-Components, Tailwind's responsive modifiers).
+
+Framer Motion Animation:
+
+Apply subtle and engaging animations to enhance the user experience. Examples:
+
+Initial Load: Fade-in or staggered entrance for text elements.
+
+Background: Subtle movement or slow animation (if applicable, e.g., gradient shift, particle effect hint).
+
+Interaction: Animate interactive elements (like the subscription form) on focus or hover.
+
+Focus: Animations should be smooth, performant, and not distracting.
+
+User Satisfaction Features (Choose/Specify):
+
+(Highly Recommended) Email Subscription Form:
+
+Input field for email address.
+
+Submit button.
+
+Clear call-to-action (e.g., "Get notified on launch!").
+
+State Management: Handle input value, loading state (during submission), success state, and error state within the component.
+
+API Integration: Assume a placeholder function or endpoint (handleSubscriptionSubmit(email: string): Promise<void>) for submitting the email. The component should handle the async nature of this call.
+
+(Optional) Countdown Timer:
+
+Display remaining days, hours, minutes, seconds until a target launch date. [Provide Target Launch Date: e.g., "YYYY-MM-DDTHH:mm:ssZ"]
+
+Ensure the timer updates correctly.
+
+(Optional) Social Media Links:
+
+Icons linking to relevant social profiles (e.g., Twitter, LinkedIn, Instagram). [Provide Links]
+
+(Optional) Brief "What to Expect" Section: A short bullet list or paragraph hinting at features.

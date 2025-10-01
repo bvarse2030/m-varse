@@ -1,0 +1,39 @@
+Help me to create a prompt. I want to design a div. The page will have an eye-catching view, responsive for mobile, tablet, desktop. I am using NextJs with typescript. make those as single component. add framer motion to it. also add some err handler ui. also add some features for user satisfaction. here is response from api . ``` {
+                "customerInfo": {
+                    "customerName": "TOUFIQUER RAHMAN",
+                    "address": "Khalahati, parbatipur",
+                    "phone": "1991075127",
+                    "note": ""
+                },
+                "_id": "67f95131ad752df1441e4e80",
+                "orderId": 797440830001,
+                "totalProduct": 10,
+                "deliveryCharge": 130,
+                "orderStatus": "delivered",
+                "totalPrice": 120020,
+                "shippingArea": "inside Dhaka",
+                "productInfo": [
+                    {
+                        "name": "Moonstone Crescent 18k Gold Plated Necklace",
+                        "product-code": "RJ108",
+                        "img": "https://i.ibb.co/d0RG9jGz/67667e7a23de5.jpg",
+                        "realPrice": 890,
+                        "discountedPrice": 550,
+                        "offer": "20",
+                        "stock": 5,
+                        "description-top": "This enchanting necklace features a crescent moon-shaped pendant adorned with sparkling cubic zirconia stones and a central black moonstone that exudes mystery and elegance. The pendant is suspended from a twisted 18k gold-plated chain, adding a luxurious touch to this celestial-inspired design.\n\nMaterial: Premium alloy with 18k gold plating\nMain Stone: Black moonstone\nAccent Stones: Clear cubic zirconia\nColor: Gold with black and clear accents\nDesign: Crescent moon motif with a central moonstone\nWeight: Approximately 10 grams\nChain Length: 18 inches + 2-inch extender\nStyle: Mystical and elegant, perfect for both casual and formal wear\nThis necklace is an ideal choice for those who love celestial-inspired jewelry and want to add a touch of sophistication to their collection.",
+                        "description-bottom": "",
+                        "material": "",
+                        "design": "",
+                        "color": "",
+                        "category": "",
+                        "weight": "",
+                        "chain length": "",
+                        "style": "",
+                        "quantity": 14
+                    }, 
+                ],
+                "createdAt": "2025-04-09T19:40:14.352Z",
+                "updatedAt": "2025-04-11T17:29:43.666Z",
+                "__v": 0
+            },```

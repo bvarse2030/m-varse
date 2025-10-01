@@ -1,0 +1,8 @@
+Create an SVG illustration depicting a serene and slightly stylized, 3D-perspective landscape. The scene should include:
+
+1.  **A prominent, healthy Tree:** Positioned perhaps slightly off-center, with distinct leaves or foliage clumps suitable for subtle animation (like rustling).
+2.  **A flowing River:** Winding through the landscape, maybe from background to foreground, with clear lines indicating flow direction.
+3.  **A visible Sun:** Positioned in the sky (e.g., partially visible behind hills or the tree), suggesting daytime. Give it rays or a distinct circular shape.
+4.  **Implied Depth/3D:** Use layering (elements overlapping), simple gradients for shading (on the tree trunk, river banks, distant hills if any), and perspective (river wider in front, narrower in back) to create a sense of 3D without complex geometry.
+5.  **Style:** Eyecatching but calming. Clean lines, perhaps a slightly illustrative or low-poly feel. Use a pleasant and welcoming color palette.
+6.  **Structure for Animation:** Ensure elements that will be animated (sun, specific river flow lines, tree leaves/branches) are distinct paths or groups within the SVG structure. For example, group leaves together, make the sun a distinct circle/group, and use paths for river highlights/flow lines. Output as a clean SVG file.

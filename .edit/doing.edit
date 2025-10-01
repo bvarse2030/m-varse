@@ -1,0 +1,21 @@
+! connected with mongoDb
+
+1. Create Account in MongoDB => https://account.mongodb.com/account/login
+2. Copy uri from MongoDB => cluster/connect/ => [copyuri]
+3. pase uri from MongoDB => .env.local.mongooseURI
+1. Update => src/lib/mongoose.ts [past code]
+2. Update => .env.local [past code]
+2. Update => src/app/api/... [past code] 
+2. Update => 
+
+
+!  Update api
+1. replace 4 word
+    Users => _1_Users_
+    users => _2_users_
+    User  => _3_User_
+    user  => _4_user_
+
+! install redux and reactToast
+1. copy redux folder
+2. update => layout
