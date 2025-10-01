@@ -23,7 +23,7 @@ export default function MenuEditorComponent() {
         async function fetchMenuData() {
             try {
                 const res = await fetch(
-                    `${process.env.BASE_URL}api/site-setting/menu/v1`
+                    `${process.env.BASE_URL}/api/site-setting/menu/v1`
                 )
                 if (!res.ok) {
                     throw new Error('Failed to fetch menu data')
@@ -58,7 +58,7 @@ export default function MenuEditorComponent() {
 
         try {
             const res = await fetch(
-                `${process.env.BASE_URL}api/site-setting/menu/v1`,
+                `${process.env.BASE_URL}/api/site-setting/menu/v1`,
                 {
                     method: 'PUT',
                     headers: {

@@ -16,7 +16,7 @@ interface MenuData {
 async function getMenuData(): Promise<MenuData | null> {
     try {
         const res = await fetch(
-            `${process.env.BASE_URL}api/site-setting/menu/v1`,
+            `${process.env.BASE_URL}/api/site-setting/menu/v1`,
             {
                 next: { tags: ['menu'] },
             }

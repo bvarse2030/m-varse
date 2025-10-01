@@ -15,8 +15,8 @@ import {
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import PrivatePageEditor from '@/components/common/site-settings/PrivatePageEditor'
-import MenuEditorComponent from '@/components/common/site-settings/MenuEditorComponent'
+import PrivatePageEditor from '@/components/common/site-settings/private-pate/PrivatePageEditor'
+import MenuEditorComponent from '@/components/common/site-settings/menu/MenuEditorComponent'
 import RelavidatePrivatePage from './RelavidatePrivatePage'
 
 const Page = () => {

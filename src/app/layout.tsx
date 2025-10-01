@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import MenuComponent from '@/components/common/site-settings/MenuComponent'
+import MenuComponent from '@/components/common/site-settings/menu/MenuComponent'
 import PWAInstallPrompt from '@/components/common/home-pwa-install-popup/PWAInstallPrompt'
 
 const geistSans = Geist({

@@ -31,7 +31,7 @@ interface AboutData {
 async function getAboutData(): Promise<AboutData> {
     // Fetch data from the local API endpoint
     const res = await fetch(
-        `${process.env.BASE_URL}api/site-setting/private/v1`,
+        `${process.env.BASE_URL}/api/site-setting/private/v1`,
         {
             cache: 'no-store', // Ensure fresh data on every request
         }
