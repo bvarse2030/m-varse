@@ -23,7 +23,7 @@ export default function MenuEditorComponent() {
         async function fetchMenuData() {
             try {
                 const res = await fetch(
-                    'http://localhost:3000/api/site-setting/menu/v1'
+                    `${process.env.BASE_URL}api/site-setting/menu/v1`
                 )
                 if (!res.ok) {
                     throw new Error('Failed to fetch menu data')
@@ -58,7 +58,7 @@ export default function MenuEditorComponent() {
 
         try {
             const res = await fetch(
-                'http://localhost:3000/api/site-setting/menu/v1',
+                `${process.env.BASE_URL}api/site-setting/menu/v1`,
                 {
                     method: 'PUT',
                     headers: {
@@ -86,11 +86,13 @@ export default function MenuEditorComponent() {
     }
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return <div className="p-8 text-center">Loading...</div>
     }
 
     if (error) {
-        return <div>Error: {error}</div>
+        return (
+            <div className="p-8 text-center text-red-500">Error: {error}</div>
+        )
     }
 
     return (
@@ -99,20 +101,20 @@ export default function MenuEditorComponent() {
             className="space-y-4 p-8 bg-white shadow-md rounded-lg"
         >
             {menuData &&
-                Object.keys(menuData).map((key) =>
+                (Object.keys(menuData) as Array<keyof MenuData>).map((key) =>
                     key !== '_id' ? (
                         <div key={key}>
                             <label
                                 htmlFor={key}
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-700 capitalize"
                             >
-                                {key.charAt(0).toUpperCase() + key.slice(1)}
+                                {key.replace(/([A-Z])/g, ' $1')}
                             </label>
                             <input
                                 type="text"
                                 id={key}
                                 name={key}
-                                value={(menuData as any)[key]}
+                                value={menuData[key]} // No need for 'as string' anymore
                                 onChange={handleInputChange}
                                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
