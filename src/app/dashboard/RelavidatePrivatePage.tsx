@@ -13,7 +13,7 @@ const RelavidatePrivatePage = () => {
     // Define the Server Action
     async function handleRevalidation() {
         'use server'
-        revalidatePath('/private-page')
+        revalidatePath('/private')
     }
 
     return (
