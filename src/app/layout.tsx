@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import MenuBarNextComponent from '@/components/common/Menu'
+import PWAInstallPrompt from '@/components/common/home-pwa-install-popup/PWAInstallPrompt'
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -35,7 +36,7 @@ export default function RootLayout({
                 {/* <MenuComponent /> */}
                 <MenuBarNextComponent />
                 {children}
-                {/* <PWAInstallPrompt /> */}
+                <PWAInstallPrompt />
             </body>
         </html>
     )

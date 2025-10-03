@@ -38,7 +38,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         if (isMobile && isSidebarOpen && pathname !== '/settings-toggle') {
             setIsSidebarOpen(false)
         }
-    }, [pathname, isMobile])
+    }, [pathname, isMobile, isSidebarOpen])
     useEffect(() => {
         if (!isMobile && isSidebarOpen) {
             setIsSidebarOpen(false)
