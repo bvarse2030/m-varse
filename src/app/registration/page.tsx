@@ -12,9 +12,8 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa' // For show/hide password and Google icon
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa'
 import { authClient, signIn } from '@/lib/auth-client'
-import { redirect } from 'next/navigation'
 
 const AnimatedBackgroundSVG: React.FC = () => (
     <svg
@@ -155,9 +154,11 @@ const RegistrationPage: React.FC = () => {
             },
             {
                 onRequest: (ctx) => {
+                    console.log('ctx ', ctx)
                     setLoading(true)
                 },
                 onResponse: (ctx) => {
+                    console.log('ctx ', ctx)
                     setLoading(false)
                 },
             }

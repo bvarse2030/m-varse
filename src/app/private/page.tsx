@@ -10,8 +10,9 @@
 
 import { Suspense } from 'react'
 import Image from 'next/image'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
 
-// Define the type for the 'About' data based on the API response
 interface AboutData {
     _id: string
     title: string
@@ -27,34 +28,34 @@ interface AboutData {
     updatedAt: string
 }
 
-// Asynchronous function to fetch 'About' data
 async function getAboutData(): Promise<AboutData> {
-    // Fetch data from the local API endpoint
     const res = await fetch(
         `${process.env.BASE_URL}/api/site-setting/private/v1`
     )
 
-    // Check for a successful response
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
 
-    // Parse the JSON response
     const jsonResponse = await res.json()
-    // Return the first 'about' item from the data array
     return jsonResponse.data.abouts[0]
 }
 
-// The main component for the private page
 export default async function PrivatePage() {
-    // Fetch the 'about' data
     const about = await getAboutData()
 
-    // JSX for the component's UI
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+    console.log('session : ', session)
+
+    if (!session?.session?.token) {
+        return <div>Private Route </div>
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 text-gray-800">
             <div className="container mx-auto px-4 py-16">
-                {/* Header Section */}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
                         {about.title}
@@ -64,7 +65,6 @@ export default async function PrivatePage() {
                     </p>
                 </div>
 
-                {/* Image Grid Section */}
                 <Suspense
                     fallback={
                         <div className="text-center">Loading images...</div>
@@ -88,9 +88,7 @@ export default async function PrivatePage() {
                     </div>
                 </Suspense>
 
-                {/* Detailed Sections */}
                 <div className="space-y-12">
-                    {/* Section 1 */}
                     <div>
                         <h2 className="text-3xl font-semibold mb-4">
                             {about.title1}
@@ -100,7 +98,6 @@ export default async function PrivatePage() {
                         </p>
                     </div>
 
-                    {/* Section 2 */}
                     <div>
                         <h2 className="text-3xl font-semibold mb-4">
                             {about.title2}
@@ -110,7 +107,6 @@ export default async function PrivatePage() {
                         </p>
                     </div>
 
-                    {/* Section 3 */}
                     <div>
                         <h2 className="text-3xl font-semibold mb-4">
                             {about.title3}

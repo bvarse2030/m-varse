@@ -49,8 +49,7 @@ const handleSubscriptionSubmit = async (email: string): Promise<string> => {
 }
 
 const ComingSoonPage: React.FC<ComingSoonPageProps> = ({
-    logoUrl = '/vercel.svg', // Default logo
-    launchDate = '2024-12-31T00:00:00Z', // Default target launch date
+    launchDate = '2024-12-31T00:00:00Z',
     headline = 'Something Awesome is Brewing!',
     teaserText = 'Our revolutionary new platform is launching soon. Get ready for a seamless experience!',
     socialLinks = {

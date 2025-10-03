@@ -6,12 +6,11 @@
 |-----------------------------------------
 */
 
-// components/DashboardLayout.tsx
 'use client'
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation' // <-- Correct import for App Router
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
     FaBars,
@@ -22,18 +21,20 @@ import {
     FaUsers,
     FaClipboardList,
     FaKey,
-} from 'react-icons/fa' // Example icons
+    FaSignOutAlt, // Import the logout icon
+} from 'react-icons/fa'
+import { signOut } from '@/lib/auth-client'
+import { useRouter } from 'next/navigation'
 
-// --- Sidebar Menu Data ---
 interface SidebarItem {
     id: number
     name: string
     path: string
-    icon: React.ElementType // Type for React Icon component
+    icon: React.ElementType
 }
 
 const sidebarData: SidebarItem[] = [
-    { id: 1, name: 'Dashboard', path: '/dashboard', icon: FaHome }, // Add a root dashboard link
+    { id: 1, name: 'Dashboard', path: '/dashboard', icon: FaHome },
     { id: 2, name: 'Account', path: '/dashboard/account', icon: FaUserCircle },
     { id: 3, name: 'Settings', path: '/dashboard/settings', icon: FaCog },
     { id: 4, name: 'Users', path: '/dashboard/users', icon: FaUsers },
@@ -51,22 +52,19 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-    const pathname = usePathname() // <-- Use usePathname for the current path
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false) // For mobile menu toggle
+    const pathname = usePathname()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] =
-        useState(false) // For desktop collapse
+        useState(false)
 
-    // Close mobile sidebar on route change
     useEffect(() => {
-        // In App Router, usePathname changes trigger a re-render.
-        // If the mobile sidebar is open and the path changes, close it.
         if (isSidebarOpen) {
             setIsSidebarOpen(false)
         }
-    }, [pathname, isSidebarOpen]) // Depend on pathname to detect route changes
+    }, [pathname, isSidebarOpen])
 
-    // Determine if we're on a mobile screen (<= 768px)
-    // This needs to be checked after component mounts to access window
+    const router = useRouter()
+
     const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
@@ -75,7 +73,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         }
 
         if (typeof window !== 'undefined') {
-            handleResize() // Initial check
+            handleResize()
             window.addEventListener('resize', handleResize)
         }
 
@@ -84,7 +82,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 window.removeEventListener('resize', handleResize)
             }
         }
-    }, []) // Run once on mount and cleanup
+    }, [])
 
     const toggleSidebar = () => {
         if (isMobile) {
@@ -93,15 +91,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             setIsDesktopSidebarCollapsed(!isDesktopSidebarCollapsed)
         }
     }
+    const handleLogout = async () => {
+        const signOutData = await signOut()
+        if (signOutData?.data?.success) {
+            router.push('/')
+        }
+    }
 
-    // Framer Motion Variants for sidebar
     const sidebarVariants = {
-        // Mobile: enters from left, full width
         mobileOpen: { x: 0, opacity: 1 },
         mobileClosed: { x: '-100%', opacity: 0 },
-        // Desktop: animates width
-        desktopExpanded: { width: '16rem', opacity: 1 }, // 64 (16rem = 256px)
-        desktopCollapsed: { width: '4rem', opacity: 1 }, // 16 (4rem = 64px)
+        desktopExpanded: { width: '16rem', opacity: 1 },
+        desktopCollapsed: { width: '4rem', opacity: 1 },
     }
 
     const navItemVariants = {
@@ -111,7 +112,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-            {/* Mobile Overlay Sidebar */}
             <AnimatePresence>
                 {isMobile && isSidebarOpen && (
                     <motion.div
@@ -142,7 +142,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                                   ? 'desktopCollapsed'
                                   : 'desktopExpanded'
                         }
-                        // Ensure desktop animations are consistent during exit by checking current state
                         animate={
                             isMobile
                                 ? isSidebarOpen
@@ -166,7 +165,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                             damping: 25,
                         }}
                     >
-                        {/* Sidebar Header */}
                         <div
                             className={`p-4 flex items-center ${isDesktopSidebarCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}
                         >
@@ -192,7 +190,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                                 <button
                                     onClick={toggleSidebar}
                                     className={`text-gray-400 hover:text-white transition-all duration-300 ease-in-out
-                    ${isDesktopSidebarCollapsed ? 'rotate-180' : ''}`} // Rotate icon when collapsed
+                    ${isDesktopSidebarCollapsed ? 'rotate-180' : ''}`}
                                     aria-label={
                                         isDesktopSidebarCollapsed
                                             ? 'Expand sidebar'
@@ -208,7 +206,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                         <nav className="flex-grow mt-5">
                             <ul>
                                 {sidebarData.map((item) => {
-                                    // Check for active path: exact match or starts with (for nested routes) but not just /dashboard for sub-paths
                                     const isActive =
                                         pathname === item.path ||
                                         (item.path !== '/dashboard' &&
@@ -232,7 +229,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                                                 <span
                                                     className={`
                             flex items-center py-3 mx-3 rounded-lg text-sm font-medium
-                            ${isActive ? 'bg-blue-600 text-white shadow-md s' : 'text-gray-300 hover:text-white'}
+                            ${isActive ? 'bg-blue-600 text-white shadow-md' : 'text-gray-300 hover:text-white'}
                             transition-all duration-200 ease-in-out
                             ${isDesktopSidebarCollapsed && !isMobile ? 'justify-center pl-0' : ' pl-3'}
                           `}
@@ -263,21 +260,40 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                             </ul>
                         </nav>
 
-                        {/* Optional: Sidebar Footer (e.g., User Info, Logout) */}
+                        {/* Logout Button */}
                         <div
-                            className={`p-4 border-t border-gray-700 ${isDesktopSidebarCollapsed && !isMobile ? 'justify-center' : ''}`}
+                            className={`p-4 border-t border-gray-700 ${isDesktopSidebarCollapsed && !isMobile ? 'flex justify-center' : ''}`}
                         >
-                            {/* Add user info or logout button here */}
+                            <motion.button
+                                onClick={handleLogout}
+                                className={`
+                    flex items-center py-3 mx-3 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-red-600
+                    transition-all duration-200 ease-in-out
+                    ${isDesktopSidebarCollapsed && !isMobile ? 'justify-center pl-0 min-w-[40px]' : 'min-w-[120px] pl-3'}
+                `}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <FaSignOutAlt
+                                    className={`h-5 w-5 ${!isDesktopSidebarCollapsed || isMobile ? 'mr-3' : ''}`}
+                                />
+                                {(!isDesktopSidebarCollapsed || isMobile) && (
+                                    <span>Logout</span>
+                                )}
+                                {isDesktopSidebarCollapsed && !isMobile && (
+                                    <span className="absolute left-full ml-2 w-max px-3 py-1 bg-gray-700 text-white text-xs rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                                        Logout
+                                    </span>
+                                )}
+                            </motion.button>
                         </div>
                     </motion.aside>
                 ) : null}
             </AnimatePresence>
 
-            {/* Main Content Area */}
             <main
                 className={`flex-grow p-6 transition-all duration-300 ease-in-out ${isDesktopSidebarCollapsed && !isMobile ? 'md:ml-4' : 'md:ml-8'}`}
             >
-                {/* Toggle button for mobile */}
                 {isMobile && !isSidebarOpen && (
                     <button
                         onClick={toggleSidebar}

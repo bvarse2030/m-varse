@@ -142,9 +142,11 @@ const LoginPage: React.FC = () => {
             },
             {
                 onRequest: (ctx) => {
+                    console.log('ctx', ctx)
                     setLoading(true)
                 },
                 onResponse: (ctx) => {
+                    console.log('ctx', ctx)
                     setLoading(false)
                 },
             }
@@ -319,6 +321,17 @@ const LoginPage: React.FC = () => {
                         >
                             <FaGoogle className="text-lg" /> Sign in with Google
                         </motion.button>
+                    </motion.div>
+                    <motion.div
+                        variants={itemVariants}
+                        className="mt-6 text-center text-sm"
+                    >
+                        Don&apos;t have an account?
+                        <Link href="/registration">
+                            <span className="text-green-400 hover:text-green-300 transition-colors duration-200 cursor-pointer px-2">
+                                Registration
+                            </span>
+                        </Link>
                     </motion.div>
                 </motion.div>
             </div>

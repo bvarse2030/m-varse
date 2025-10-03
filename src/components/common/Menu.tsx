@@ -11,6 +11,7 @@
 // components/MenuBarNextComponent.tsx
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { useSession } from '@/lib/auth-client'
 
 export interface MenuItem {
     id: number
@@ -18,21 +19,19 @@ export interface MenuItem {
     url: string
 }
 
-export const menuData: MenuItem[] = [
-    { id: 1, title: 'Home', url: '/' },
-    { id: 2, title: 'About', url: '/about' },
-    { id: 3, title: 'Private', url: '/private' },
-    { id: 4, title: 'Public', url: '/public' },
-    { id: 5, title: 'Login', url: '/login' },
-    { id: 7, title: 'Dashboard', url: '/dashboard' },
-]
-
 const MenuBarNextComponent: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
-
+    const menuData = [
+        { id: 1, title: 'Home', url: '/' },
+        { id: 2, title: 'About', url: '/about' },
+        { id: 3, title: 'Private', url: '/private' },
+        { id: 4, title: 'Public', url: '/public' },
+    ]
     const toggleMenu = () => {
         setIsOpen(!isOpen)
     }
+    const session = useSession()
+    const token = session.data?.session?.token
 
     return (
         <nav className="bg-gray-800 text-white p-4 shadow-md relative z-50">
@@ -98,6 +97,35 @@ const MenuBarNextComponent: React.FC = () => {
                                 </Link>
                             </li>
                         ))}
+                        {!token ? (
+                            <li
+                                key={Math.random().toLocaleString()}
+                                className="mb-2 md:mb-0"
+                            >
+                                <Link href={'/login'}>
+                                    <span
+                                        onClick={() => setIsOpen(false)} // Close menu on click
+                                        className="block py-2 px-3 text-white hover:text-blue-400 rounded transition-colors duration-200 cursor-pointer"
+                                    >
+                                        Login
+                                    </span>
+                                </Link>
+                            </li>
+                        ) : (
+                            <li
+                                key={Math.random().toLocaleString()}
+                                className="mb-2 md:mb-0"
+                            >
+                                <Link href={'/dashboard'}>
+                                    <span
+                                        onClick={() => setIsOpen(false)} // Close menu on click
+                                        className="block py-2 px-3 text-white hover:text-blue-400 rounded transition-colors duration-200 cursor-pointer"
+                                    >
+                                        Dashboard
+                                    </span>
+                                </Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
