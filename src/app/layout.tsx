@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: 'M Varse',
-    description: 'Malti Varse',
+    description: 'Million Varse',
     manifest: '/manifest.json',
     icons: {
         apple: '/icons/icon-192x192.png',
