@@ -11,6 +11,8 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa' // For show/hide password and Google icon
+import { authClient, signIn } from '@/lib/auth-client'
+import { useRouter } from 'next/navigation'
 
 const AnimatedBackgroundSVG: React.FC = () => (
     <svg
@@ -94,20 +96,34 @@ const LoginPage: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
-
+    const router = useRouter()
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
 
-        // Simulate API call
         try {
-            if (email === 'test@example.com' && password === 'password123') {
-                await new Promise((resolve) => setTimeout(resolve, 1500))
-                alert('Login successful!')
-                // In a real app, redirect to dashboard or set auth token
+            if (email && password) {
+                const { data, error } = await authClient.signIn.email(
+                    {
+                        email,
+                        password,
+                        rememberMe: true,
+                    },
+                    {
+                        onSuccess: (ctx) => {
+                            console.log('ctx : ', ctx)
+                            router.push('/dashboard')
+                        },
+                    }
+                )
+                if (data?.token) {
+                    console.log('token found : ', data.token)
+                } else if (error?.message) {
+                    console.log('error : ', error)
+                    setError(error.message)
+                }
             } else {
-                await new Promise((resolve) => setTimeout(resolve, 1500))
                 setError('Invalid email or password.')
             }
         } catch (err) {
@@ -118,9 +134,21 @@ const LoginPage: React.FC = () => {
         }
     }
 
-    const handleGoogleSignIn = () => {
-        alert('Google Sign-In initiated!')
-        // In a real app, initiate OAuth flow
+    const handleGoogleSignIn = async () => {
+        await signIn.social(
+            {
+                provider: 'google',
+                callbackURL: '/dashboard',
+            },
+            {
+                onRequest: (ctx) => {
+                    setLoading(true)
+                },
+                onResponse: (ctx) => {
+                    setLoading(false)
+                },
+            }
+        )
     }
 
     // Framer Motion variants for staggered entrance

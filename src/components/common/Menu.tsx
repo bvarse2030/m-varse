@@ -24,7 +24,6 @@ export const menuData: MenuItem[] = [
     { id: 3, title: 'Private', url: '/private' },
     { id: 4, title: 'Public', url: '/public' },
     { id: 5, title: 'Login', url: '/login' },
-    { id: 6, title: 'Registration', url: '/registration' },
     { id: 7, title: 'Dashboard', url: '/dashboard' },
 ]
 

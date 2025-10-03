@@ -13,6 +13,8 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa' // For show/hide password and Google icon
+import { authClient, signIn } from '@/lib/auth-client'
+import { redirect } from 'next/navigation'
 
 const AnimatedBackgroundSVG: React.FC = () => (
     <svg
@@ -117,15 +119,22 @@ const RegistrationPage: React.FC = () => {
             return
         }
 
-        // Simulate API call
         try {
             if (name && email && password.length >= 6) {
-                // Basic validation
-                await new Promise((resolve) => setTimeout(resolve, 2000))
-                alert('Registration successful!')
-                // In a real app, redirect to dashboard or set auth token
+                const { data, error } = await authClient.signUp.email({
+                    name,
+                    email,
+                    password,
+                    callbackURL: '/dashboard',
+                })
+                console.log('data : ', data)
+                console.log('error : ', error)
+                if (data?.token) {
+                    console.log('token found : ', data.token)
+                } else if (error?.message) {
+                    setError(error.message)
+                }
             } else {
-                await new Promise((resolve) => setTimeout(resolve, 2000))
                 setError(
                     'Please fill in all fields and ensure password is at least 6 characters.'
                 )
@@ -138,9 +147,21 @@ const RegistrationPage: React.FC = () => {
         }
     }
 
-    const handleGoogleSignUp = () => {
-        alert('Google Sign-Up initiated!')
-        // In a real app, initiate OAuth flow
+    const handleGoogleSignUp = async () => {
+        await signIn.social(
+            {
+                provider: 'google',
+                callbackURL: '/dashboard',
+            },
+            {
+                onRequest: (ctx) => {
+                    setLoading(true)
+                },
+                onResponse: (ctx) => {
+                    setLoading(false)
+                },
+            }
+        )
     }
 
     // Framer Motion variants for staggered entrance
