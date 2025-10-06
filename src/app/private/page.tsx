@@ -29,16 +29,35 @@ interface AboutData {
 }
 
 async function getAboutData(): Promise<AboutData> {
-    const res = await fetch(
-        `${process.env.BASE_URL}/api/site-setting/private/v1`
-    )
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
+    let jsonResponse = {
+        _id: 'dlkfjdkfjdklfjdlkfj',
+        title: 'string',
+        description: 'string',
+        images: ['string'],
+        title1: 'string',
+        description1: 'string',
+        title2: 'string',
+        description2: 'string',
+        title3: 'string',
+        description3: 'string',
+        createdAt: 'string',
+        updatedAt: 'string',
     }
+    try {
+        const res = await fetch(
+            `${process.env.BASE_URL}/api/site-setting/private/v1`
+        )
 
-    const jsonResponse = await res.json()
-    return jsonResponse.data.abouts[0]
+        if (!res.ok) {
+            throw new Error('Failed to fetch data')
+        }
+
+        const resData = await res.json()
+        jsonResponse = resData.data.abouts[0]
+    } catch (e) {
+        console.log('e : ', e)
+    }
+    return jsonResponse
 }
 
 export default async function PrivatePage() {
